@@ -20,8 +20,13 @@ public class PlayerInpute : MonoBehaviour {
     public string keyD = "left shift";
 
     public bool run = false;
+
     public bool jump = false;
-    public bool lastjump = false;
+    private bool lastjump = false;
+
+    public bool attack = false;
+    private bool lastattack = false;
+
 
     public float Dup;
     public float Dright;
@@ -45,22 +50,40 @@ public class PlayerInpute : MonoBehaviour {
         
     }
 
+    void trigger(string key,ref bool lastvalue,ref bool value)
+    {
+        bool newjump = Input.GetKey(key);
+        if (newjump == true && newjump != lastvalue)
+        {
+            value = true;
+        }
+        else
+        {
+            value = false;
+        }
+        lastvalue = newjump;
+    }
+
     // Update is called once per frame
     void Update()
     {
        
 
         run = Input.GetKey(keyD);
-        bool newjump = Input.GetKey(keyA);
-        if(newjump == true && newjump != lastjump)
-        {
-            jump = true;
-        }
-        else
-        {
-            jump = false;
-        }
-        lastjump = newjump;
+        //bool newjump = Input.GetKey(keyA);
+        //if(newjump == true && newjump != lastjump)
+        //{
+        //    jump = true;
+        //}
+        //else
+        //{
+        //    jump = false;
+        //}
+        //lastjump = newjump;
+
+        trigger(keyA,ref lastjump, ref jump);
+
+        trigger(keyC,ref lastattack,ref attack);
 
         Jup = (Input.GetKey(keyJUp) ? 1.0f : 0) - (Input.GetKey(keyJDown) ? 1.0f : 0);
         Jright = (Input.GetKey(keyJLeft) ? 0 : 1.0f) - (Input.GetKey(keyJRight) ? 0 : 1.0f);

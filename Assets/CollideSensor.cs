@@ -22,12 +22,12 @@ public class CollideSensor : MonoBehaviour {
         Collider[] res = Physics.OverlapCapsule(point1, point2, radius,LayerMask.GetMask("Ground"));
         if (res.Length!= 0)
         {
-            print("1111");
+            //print("1111");
             SendMessageUpwards ("isGround");
         }
         else
         {
-            print("2222");
+            //print("2222");
             SendMessageUpwards("UpGround");
         }
     }

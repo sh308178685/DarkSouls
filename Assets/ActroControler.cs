@@ -19,9 +19,11 @@ public class ActroControler : MonoBehaviour {
     private bool lockPlanar = false;
     [SerializeField]
     private Rigidbody rig;
+    private bool canAttack = true;
 
 
-	void Awake () {
+
+    void Awake () {
         anim = model.GetComponent<Animator>();
         pi = GetComponent<PlayerInpute>();
         rig = GetComponent<Rigidbody>();
@@ -41,7 +43,14 @@ public class ActroControler : MonoBehaviour {
         if (pi.jump)
         {
             anim.SetTrigger("jump");
+            canAttack = false;
         }
+
+        if (pi.attack && CheckState("ground") && canAttack)
+        {
+            anim.SetTrigger("attack");
+        }
+
         if (pi.Dmag > 0.1f)
         {
             model.transform.forward = Vector3.Slerp(model.transform.forward, pi.Dvec, 0.1f);
@@ -60,11 +69,16 @@ public class ActroControler : MonoBehaviour {
         jumpvec = Vector3.zero;
     }
 
+    bool CheckState(string statename,string layername = "Base Layer")
+    {
+        var index = anim.GetLayerIndex(layername);
+        return anim.GetCurrentAnimatorStateInfo(index).IsName(statename);
+    }
+
     void onJumpEnter()
     {
         pi.inputeEnabled = false;
         lockPlanar = true;
-        
         jumpvec = new Vector3(0, jumprate, 0);
     }
 
@@ -85,6 +99,7 @@ public class ActroControler : MonoBehaviour {
     {
         pi.inputeEnabled = true;
         lockPlanar = false;
+        canAttack = true;
     }
 
     void onRollEnter()
@@ -106,6 +121,25 @@ public class ActroControler : MonoBehaviour {
     void onJabUpdate()
     {
         jumpvec = model.transform.forward * anim.GetFloat("jabRate");
+    }
+
+    void onAttack1AUpdate()
+    {
+        jumpvec = model.transform.forward * anim.GetFloat("attack1ARate");
+    }
+
+    void onAttackIdle()
+    {
+        pi.inputeEnabled = true;
+        
+        anim.SetLayerWeight(anim.GetLayerIndex("Attack"), 0.0f);
+    }
+
+    void onAttack1A()
+    {
+        pi.inputeEnabled = false;
+       
+        anim.SetLayerWeight(anim.GetLayerIndex("Attack"), 1.0f);
     }
 
 
