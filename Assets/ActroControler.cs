@@ -21,13 +21,19 @@ public class ActroControler : MonoBehaviour {
     private Rigidbody rig;
     private bool canAttack = true;
 
+    public PhysicMaterial fictionOne;
+    public PhysicMaterial fictionZero;
+    private CapsuleCollider cold;
 
+    private float AttackTargetWeight;
 
     void Awake () {
         anim = model.GetComponent<Animator>();
         pi = GetComponent<PlayerInpute>();
         rig = GetComponent<Rigidbody>();
-	}
+        cold = GetComponent<CapsuleCollider>();
+
+    }
 
     // Update is called once per frame
     void Update()
@@ -100,6 +106,12 @@ public class ActroControler : MonoBehaviour {
         pi.inputeEnabled = true;
         lockPlanar = false;
         canAttack = true;
+        cold.material = fictionOne;
+    }
+
+    void onGroundExit()
+    {
+        cold.material = fictionZero;
     }
 
     void onRollEnter()
@@ -126,20 +138,34 @@ public class ActroControler : MonoBehaviour {
     void onAttack1AUpdate()
     {
         jumpvec = model.transform.forward * anim.GetFloat("attack1ARate");
+
+        float current = anim.GetLayerWeight(anim.GetLayerIndex("Attack"));
+        current = Mathf.Lerp(current, AttackTargetWeight, 0.4f);
+        anim.SetLayerWeight(anim.GetLayerIndex("Attack"), current);
+
     }
 
     void onAttackIdle()
     {
         pi.inputeEnabled = true;
-        
-        anim.SetLayerWeight(anim.GetLayerIndex("Attack"), 0.0f);
+
+        //anim.SetLayerWeight(anim.GetLayerIndex("Attack"), 0.0f);
+        AttackTargetWeight = 0f;
+    }
+
+    void onAttackIdleUpdate()
+    {
+        float current = anim.GetLayerWeight(anim.GetLayerIndex("Attack"));
+        current = Mathf.Lerp(current, AttackTargetWeight, 0.4f);
+        anim.SetLayerWeight(anim.GetLayerIndex("Attack"), current);
     }
 
     void onAttack1A()
     {
         pi.inputeEnabled = false;
-       
-        anim.SetLayerWeight(anim.GetLayerIndex("Attack"), 1.0f);
+
+        //anim.SetLayerWeight(anim.GetLayerIndex("Attack"), 1.0f);
+        AttackTargetWeight = 1.0f;
     }
 
 
