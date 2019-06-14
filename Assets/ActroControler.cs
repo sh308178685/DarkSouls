@@ -24,7 +24,7 @@ public class ActroControler : MonoBehaviour {
     public PhysicMaterial fictionOne;
     public PhysicMaterial fictionZero;
     private CapsuleCollider cold;
-
+    private Vector3 deltaPos;
     private float AttackTargetWeight;
 
     void Awake () {
@@ -71,8 +71,10 @@ public class ActroControler : MonoBehaviour {
     void FixedUpdate()
     {
         //rig.position += vec * Time.fixedDeltaTime;
+        rig.position += deltaPos;
         rig.velocity = new Vector3( vec.x,rig.velocity.y,vec.z) +  jumpvec;
         jumpvec = Vector3.zero;
+        deltaPos = Vector3.zero;
     }
 
     bool CheckState(string statename,string layername = "Base Layer")
@@ -168,7 +170,13 @@ public class ActroControler : MonoBehaviour {
         AttackTargetWeight = 1.0f;
     }
 
-
+    void OnAnimatorMoveUpdate(object _deltPos)
+    {
+        if (CheckState("attack1C", "Attack"))
+        {
+            deltaPos += (deltaPos * 0.2f + 0.8f*(Vector3)_deltPos);
+        }
+    }
     void isGround()
     {
         anim.SetBool("isGround", true);

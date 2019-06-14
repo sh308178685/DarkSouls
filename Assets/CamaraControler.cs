@@ -39,6 +39,8 @@ public class CamaraControler : MonoBehaviour {
         camara.transform.position = Vector3.Lerp(camara.transform.position, transform.position, 0.2f);
         //camara.transform.eulerAngles = Vector3.Lerp(camara.transform.eulerAngles, transform.eulerAngles, 0.2f);
 
-        camara.transform.eulerAngles = transform.eulerAngles;
+        //camara.transform.eulerAngles = transform.eulerAngles;
+
+        camara.transform.LookAt(CamaraHandle.transform);
     }
 }
