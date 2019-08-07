@@ -19,6 +19,10 @@ public class CamaraControler : MonoBehaviour {
         // x = CamaraHandle.transform.localEulerAngles.x;
         model = PlayerHandle.GetComponent<ActroControler>().model;
         camara = Camera.main.gameObject;
+        if (pi.MouseEnable)
+        {
+            //Cursor.lockState = CursorLockMode.Locked; // 隐藏鼠标
+        }
     }
 	
 	// Update is called once per frame

@@ -1,0 +1,4 @@
+#Mon Aug 05 10:10:34 CST 2019
+base.0=E\:\\UNITY\\Dark Souls\\Temp\\gradleOut\\build\\intermediates\\transforms\\dex\\release\\0
+path.0=classes.dex
+renamed.0=classes.dex

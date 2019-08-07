@@ -171,3 +171,5 @@ E:\UNITY\Dark Souls\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
 E:\UNITY\Dark Souls\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 E:\UNITY\Dark Souls\obj\Debug\Assembly-CSharp.dll
 E:\UNITY\Dark Souls\obj\Debug\Assembly-CSharp.pdb
+E:\UNITY\Dark Souls\Temp\bin\Debug\UnityEngine.SpatialTrackingModule.dll
+E:\UNITY\Dark Souls\Temp\bin\Debug\UnityEngine.SpatialTrackingModule.xml

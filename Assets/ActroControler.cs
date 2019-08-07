@@ -45,6 +45,14 @@ public class ActroControler : MonoBehaviour {
         {
             anim.SetTrigger("isRoll");
         }
+        if(pi.defence)
+        {
+            anim.SetBool("defence", true);
+        }
+        else
+        {
+            anim.SetBool("defence", false);
+        }
 
         if (pi.jump)
         {
@@ -174,7 +182,7 @@ public class ActroControler : MonoBehaviour {
     {
         if (CheckState("attack1C", "Attack"))
         {
-            deltaPos += (deltaPos * 0.2f + 0.8f*(Vector3)_deltPos);
+            deltaPos += (deltaPos * 0.8f + 0.2f*(Vector3)_deltPos);
         }
     }
     void isGround()
